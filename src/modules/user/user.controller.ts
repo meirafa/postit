@@ -8,19 +8,32 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import {
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UserPayload } from './user.payload';
 import { UserProxy } from './user.proxy';
 
 @Controller('user')
+@ApiTags('user')
 export class UserController {
   public listUsers: UserProxy[] = [];
 
   @Get('/list')
+  @ApiOperation({ summary: 'obtem os dados de todos os usuarios' })
+  @ApiOkResponse({ type: UserProxy, isArray: true })
   public getUsers(): UserProxy[] {
     return this.listUsers;
   }
 
   @Get(':userId')
+  @ApiOperation({ summary: 'Obtém um usuário pela identificação' })
+  @ApiOkResponse({ type: UserProxy })
+  @ApiParam({ name: 'userId', description: 'A identificação do usuário' })
   public getOneUser(@Param('userId') userId: string): UserProxy {
     const user = this.listUsers.find((user) => user.id === +userId);
 
@@ -32,12 +45,25 @@ export class UserController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'Cadastra um usuário' })
+  @ApiOkResponse({ type: UserProxy })
+  @ApiBody({
+    type: UserProxy,
+    description: 'Os dados a serem cadastrados no usuário',
+  })
   public postUser(@Body() user: UserProxy): UserProxy {
     this.listUsers.push(user);
     return user;
   }
 
   @Put(':userId')
+  @ApiOperation({ summary: 'Atualiza um usuário' })
+  @ApiOkResponse({ type: UserProxy })
+  @ApiParam({ name: 'userId', description: 'A identificação do usuário' })
+  @ApiBody({
+    type: UserPayload,
+    description: 'Os dados a serem atualizados do usuário',
+  })
   public putUser(
     @Param('userId') userId: string,
     @Body() user: UserPayload,
@@ -57,6 +83,9 @@ export class UserController {
   }
 
   @Delete(':userId')
+  @ApiOperation({ summary: 'Deleta um usuário' })
+  @ApiOkResponse()
+  @ApiParam({ name: 'userId', description: 'A identificação do usuário' })
   public deleteUser(@Param('userId') userId: string): string {
     this.listUsers.filter((user) => user.id !== +userId);
     return 'deletado';
