@@ -1,13 +1,20 @@
-import { ApiPropertyOptional } from "@nestjs/swagger";
-import { IsBoolean, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class UpdateNotePayload {
-
   @ApiPropertyOptional()
   @IsOptional()
   @IsString({ message: 'O título da nota deve ser uma string' })
   @IsNotEmpty({ message: 'O título da nota não pode ser vazio' })
-  @MaxLength(150, { message: 'O título da nota não pode ultrapassar 150 caracteres' })
+  @MaxLength(150, {
+    message: 'O título da nota não pode ultrapassar 150 caracteres',
+  })
   public title?: string;
 
   @ApiPropertyOptional()
@@ -21,4 +28,9 @@ export class UpdateNotePayload {
   @IsBoolean({ message: 'A visibilidade da nota deve ser um booleano' })
   public isPublic?: boolean;
 
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString({ message: 'A cor da nota deve ser uma string' })
+  @IsNotEmpty({ message: 'A cor da nota não pode ser vazia' })
+  public color?: string;
 }

@@ -14,6 +14,7 @@ export class NoteProxy {
     this.updatedAt = entity.updatedAt;
     this.userId = entity.userId;
     this.hasLiked = false;
+    this.color = entity.color;
 
     if (entity.user)
       this.user = new UserProxy(entity.user);
@@ -36,6 +37,9 @@ export class NoteProxy {
 
   @ApiProperty()
   public isPublic: boolean;
+
+  @ApiProperty()
+  public color: string;
 
   @ApiProperty()
   public createdAt: Date;
