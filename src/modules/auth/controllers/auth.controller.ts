@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthController {
   constructor(private readonly service: AuthService) {}
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(AuthGuard('local'))//useguards - validar na requisição antes que chegue no controller. authguard - faz validação (local.strategy) do passport antes de chegar no metodo 
   @Post('login')
   @ApiOperation({ summary: 'Realiza o login de um usuário' })
   @ApiOkResponse({ type: TokenProxy })

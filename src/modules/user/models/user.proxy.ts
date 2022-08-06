@@ -12,7 +12,7 @@ export class UserProxy {
     this.updatedAt = entity.updatedAt;
   }
 
-  @ApiProperty()
+  @ApiProperty()//mostra pro swagger as propriedades que ira retornar
   public id: number;
 
   @ApiProperty()

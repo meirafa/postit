@@ -25,26 +25,26 @@ import { UserProxy } from '../models/user.proxy';
 import { UserService } from '../services/user.service';
 
 @Controller('user')
-@ApiTags('user')
+@ApiTags('user') //separar por tag no swagger
 export class UserController {
   constructor(private readonly service: UserService) {}
 
   @ProtectTo()
   @Get('/list')
-  @ApiOperation({ summary: 'Obtém os dados de todos os usuários' })
-  @ApiOkResponse({ type: UserProxy, isArray: true })
+  @ApiOperation({ summary: 'Obtém os dados de todos os usuários' }) //descreve o que o endpoint faz
+  @ApiOkResponse({ type: UserProxy, isArray: true }) //resposta de erro - quando coloca o tipo precisa definir que é array quando retorna varios
   @ApiQuery({
     name: 'search',
     description: 'A busca a ser realizada',
     required: false,
-  })
+  }) //buscar por nome contido e não é obrigatorio
   public getUsers(@Query('search') search: string): Promise<UserProxy[]> {
     return this.service
       .getUsers(search)
       .then((result) => result.map((entity) => new UserProxy(entity)));
   }
 
-  @ProtectTo()
+  @ProtectTo() //classe criada pasta decorators para passar pelo jwt
   @Get(':userId')
   @ApiOperation({ summary: 'Obtém um usuário pela identificação' })
   @ApiOkResponse({ type: UserProxy })
@@ -70,11 +70,11 @@ export class UserController {
   @Put(':userId')
   @ApiOperation({ summary: 'Atualiza um usuário' })
   @ApiOkResponse({ type: UserProxy })
-  @ApiParam({ name: 'userId', description: 'A identificação do usuário' })
+  @ApiParam({ name: 'userId', description: 'A identificação do usuário' }) //descrever o parametro
   @ApiBody({
     type: UpdateUserPayload,
     description: 'Os dados a serem atualizados do usuário',
-  })
+  }) //descrever o body
   public putUser(
     @User() requestUser: UserEntity,
     @Param('userId') userId: string,

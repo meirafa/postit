@@ -24,7 +24,7 @@ export class AuthService {
     const isPasswordValid = await bcryptjs.compare(
       passwordInPlainText,
       user.password,
-    );
+    );//comparando se a senha é valida com a cadastrada
 
     if (!isPasswordValid)
       throw new BadRequestException('Email ou senha inválidos');
@@ -32,16 +32,18 @@ export class AuthService {
     return user;
   }
 
+  //gerar token jwt
   public async generateToken(user: UserEntity): Promise<TokenProxy> {
     const payload: JwtPayload = {
       id: user.id,
     };
 
-    const token = await this.jwtService.signAsync(payload, { expiresIn: '1d' });
+    const token = await this.jwtService.signAsync(payload, { expiresIn: '1d' });//signAsync() assina o token, configuracao de tempo (1 dia)
 
     return new TokenProxy(token);
   }
 
+  //validando o jwt
   public async validateJwt(payload: JwtPayload): Promise<UserEntity> {
     return await this.userService.getOneUser(payload.id);
   }

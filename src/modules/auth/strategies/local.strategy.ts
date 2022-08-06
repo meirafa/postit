@@ -10,6 +10,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
+  //autenticando usuario
   public async validate(
     username: string,
     password: string,

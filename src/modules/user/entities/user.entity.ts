@@ -6,29 +6,29 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')
+@Entity('users')//nome da tabela
 export class UserEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()//incrementa automaticamente
   public id: number;
 
-  @Column({ length: 150 })
+  @Column({ length: 150 })//tamanho max pro nome
   public name: string;
 
-  @Column({ length: 150, unique: true })
+  @Column({ length: 150, unique: true })//tamanho max e unico
   public email: string;
 
   @Column({ length: 80 })
   public password: string;
 
-  @Column({ length: 50, nullable: true })
+  @Column({ length: 50, nullable: true })// tamanho max, opcional
   public role?: string;
 
   @Column({ length: 250, nullable: true })
   public imageUrl?: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn() //data que o usuario é criado
   public createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn() //data que o usuario é alterado
   public updatedAt: Date;
 }

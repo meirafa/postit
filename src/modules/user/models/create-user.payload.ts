@@ -9,16 +9,16 @@ import {
 } from 'class-validator';
 
 export class CreateUserPayload {
-  @ApiProperty()
-  @IsDefined({ message: 'O nome deve ser definido' })
-  @IsString({ message: 'O nome deve ser uma string' })
+  @ApiProperty()//obrigatorio
+  @IsDefined({ message: 'O nome deve ser definido' })//checa se é definido e customiza mensagem
+  @IsString({ message: 'O nome deve ser uma string' })//checa se é string
   @MinLength(2, { message: 'O nome deve ser maior ou igual a 2 caracteres' })
-  public name: string;
+  public name: string;//checa se tem min 2 caracter
 
   @ApiProperty()
   @IsDefined({ message: 'O email deve ser definido' })
   @IsString({ message: 'O email deve ser uma string' })
-  @IsEmail({ message: 'O email não é válido' })
+  @IsEmail({ message: 'O email não é válido' })//checa se é email
   public email: string;
 
   @ApiProperty()
@@ -28,13 +28,13 @@ export class CreateUserPayload {
   public password: string;
 
   @ApiPropertyOptional()
-  @IsOptional()
+  @IsOptional()//opcional
   @IsString({ message: 'O cargo deve ser uma string' })
   public role?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString({ message: 'A URL da imagem deve ser uma string' })
-  @IsUrl({}, { message: 'A URL deve ser válida' })
+  @IsUrl({}, { message: 'A URL deve ser válida' })//checa se é url
   public imageUrl?: string;
 }

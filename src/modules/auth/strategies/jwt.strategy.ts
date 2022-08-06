@@ -12,9 +12,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: environment.JWT_KEY,
-    });
+    });//valida o jwt da head com a senha do env
   }
 
+  //validar usuario
   public async validate(payload: JwtPayload): Promise<UserEntity> {
     return await this.service.validateJwt(payload);
   }

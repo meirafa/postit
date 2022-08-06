@@ -2,7 +2,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsUrl, MinLength } from 'class-validator';
 
 export class UpdateUserPayload {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional()//propriedade opcional
   @IsOptional()
   @IsString({ message: 'O nome deve ser uma string' })
   @MinLength(2, { message: 'O nome deve ser maior ou igual a 2 caracteres' })

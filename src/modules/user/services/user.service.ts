@@ -11,7 +11,7 @@ import { CreateUserPayload } from '../models/create-user.payload';
 import { UpdateUserPayload } from '../models/update-user.payload';
 import * as bcryptjs from 'bcryptjs';
 
-@Injectable()
+@Injectable() //diz pro nest que o servico pode ser inicializado por ele
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
@@ -28,7 +28,7 @@ export class UserService {
         name: 'ASC',
       },
       where: search ? { name: Like('%' + search + '%') } : {},
-    });
+    }); //ordenando no banco pelo nome e buscar por nome contido (pega da query) caso tenha
 
     return users;
   }
