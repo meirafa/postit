@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { environment } from './environment/environment';
 import { AuthModule } from './modules/auth/auth.module';
+import { NoteCommentModule } from './modules/note-comment/note-comment.module';
+import { NoteLikeModule } from './modules/note-like/note-like.module';
+import { NoteRoutingModule } from './modules/note/note-routing.module';
 import { UserModule } from './modules/user/user.module';
 
 @Module({
@@ -23,6 +26,9 @@ import { UserModule } from './modules/user/user.module';
     }),//para nao ter problemas com heroku
     UserModule,
     AuthModule,
+    NoteCommentModule,
+    NoteLikeModule,
+    NoteRoutingModule,
   ],
 })
 export class AppModule {}

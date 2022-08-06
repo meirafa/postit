@@ -85,6 +85,7 @@ export class UserController {
       .then((entity) => new UserProxy(entity));
   }
 
+  @ProtectTo()
   @Delete(':userId')
   @ApiOperation({ summary: 'Deleta um usuário' })
   @ApiOkResponse()
