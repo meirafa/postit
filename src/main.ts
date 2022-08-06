@@ -7,7 +7,12 @@ import { environment } from './environment/environment';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());//validação nest
+  //tratar cors
+  app.enableCors({
+    origin: true,
+  });
+
+  app.useGlobalPipes(new ValidationPipe()); //validação nest
 
   //inicio swagger
   const config = new DocumentBuilder()
@@ -20,7 +25,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config); //inicializa
 
   SwaggerModule.setup('swagger', app, document, {
-    swaggerOptions: { docExpansion: 'none' },//deixa as guias fechadas no swagger
+    swaggerOptions: { docExpansion: 'none' }, //deixa as guias fechadas no swagger
   }); //pasta que ira ficar o swagger e configuraçoes
   //fim swagger
 
